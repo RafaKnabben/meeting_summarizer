@@ -8,6 +8,7 @@ wheel>=0.29
 numpy
 pandas
 scikit-learn
+scipy
 
 # tests/linter
 black
@@ -27,3 +28,16 @@ six>=1.14
 joblib
 memoized-property
 termcolor
+os
+
+#speech2text
+sox
+librosa
+deepspeech
+SpeechRecognition
+pydub
+wave
+contextlib
+ffmpeg
+portaudio
+pyaudio
