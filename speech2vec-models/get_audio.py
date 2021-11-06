@@ -15,6 +15,15 @@ import io
 import ffmpeg
 from IPython import display
 
+# Important files to run the DeepSpeech model:
+# !curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.pbmm
+# !curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.scorer
+# Move these files to: /meeting_summarizer/speech2vec-models/data
+
+# Here's the data to train the model
+# !curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/audio-0.9.3.tar.gz
+# In order to open the file above, use the following command:
+# !tar xvf audio-0.9.3.tar.gz
 
 def read_wav_file(filename):
     with wave.open(filename, 'rb') as w:
