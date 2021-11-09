@@ -165,18 +165,18 @@ def get_mic():
 
 def get_audio():
     play, rate = get_mic()
-    soundfile.write("/content/mic_result.wav", data=play, samplerate=rate)
+    soundfile.write("/data/mic_result.wav", data=play, samplerate=rate)
 
     if rate != 16000:
-        audio, sr = librosa.load('/content/mic_result.wav', sr=16000)
-        soundfile.write("/content/mic_result.wav", data=audio, samplerate=sr)
+        audio, sr = librosa.load('/data/mic_result.wav', sr=16000)
+        soundfile.write("/data/mic_result.wav", data=audio, samplerate=sr)
 
-        transcript = get_transcript("/content/mic_result.wav")
+        transcript = get_transcript("/data/mic_result.wav")
 
         return transcript
 
     else:
-        transcript = get_transcript("/content/mic_result.wav")
+        transcript = get_transcript("/data/mic_result.wav")
 
     return transcript
 
