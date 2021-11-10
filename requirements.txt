@@ -22,6 +22,7 @@ gcsfs
 google-cloud-storage
 mlflow
 s3fs
+google-colab
 
 # utilities
 six>=1.14
@@ -29,15 +30,16 @@ joblib
 memoized-property
 termcolor
 os
+IPython
+base64
+io
 
 #speech2text
 sox
 librosa
 deepspeech
-SpeechRecognition
-pydub
 wave
-contextlib
+soundfile
 ffmpeg
 portaudio
 pyaudio
