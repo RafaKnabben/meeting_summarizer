@@ -25,21 +25,17 @@ s3fs
 google-colab
 
 # utilities
-six>=1.14
+six
 joblib
 memoized-property
 termcolor
-os
 IPython
-base64
-io
 
 #speech2text
 sox
 librosa
 deepspeech
-wave
+#wave==0.0.2
 soundfile
 ffmpeg
-portaudio
 pyaudio
