@@ -1,22 +1,25 @@
 # base image
 FROM python:3.8-buster
 
-# # our api
+# path to the GCP credentials file
+# COPY /path/to/your/credentials.json /credentials.json
+
+# copy api
 COPY api /api
 
-# # package
+# copy package
 # COPY meeting_summarizer /meeting_summarizer
 
-# # trained model(s)
+# copy trained model(s)
 # COPY model /model
 
-# # package dependencies
+# copy package dependencies
 COPY requirements.txt /requirements.txt
 
-# # run pip
+# run pip
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# # run uvicorn
+# run uvicorn server
 CMD uvicorn api.fast:app --host 0.0.0.0
-# #??? --port $PORT
+#??? --port $PORT
