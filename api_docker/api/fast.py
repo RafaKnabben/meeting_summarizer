@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+#import librosa
 # import joblib
 
 
@@ -23,6 +24,14 @@ def index():
     # pipeline = get_model_from_gcp()
     # pipeline = joblib.load('model.joblib')
     return {"ok": True}
+
+
+# upload videos
+@app.post("/uploadfile")
+def upload_(*args, **kwargs):
+    #y, sr = librosa.load(file.FILENME)
+    pass
+
 
 #get audio data from youtube videos
 @app.get("/audio")

@@ -8,7 +8,7 @@ uvicorn
 # json
 
 # # speech 2vec
-# librosa
+#librosa
 # future
 
 # # data
