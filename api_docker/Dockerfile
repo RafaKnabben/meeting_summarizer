@@ -8,7 +8,7 @@ FROM python:3.8-buster
 COPY api /api
 
 # copy package
-# COPY meeting_summarizer /meeting_summarizer
+# COPY speech_summarizer /speech_summarizer
 
 # copy trained model(s)
 # COPY model /model
@@ -21,5 +21,4 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # run uvicorn server
-CMD uvicorn api.fast:app --host 0.0.0.0
-#??? --port $PORT
+CMD uvicorn api.fast:app --host 0.0.0.0 --port $PORT
