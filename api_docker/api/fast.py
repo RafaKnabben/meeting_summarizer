@@ -6,7 +6,6 @@ import os
 import librosa
 import soundfile
 from pydub import AudioSegment
-import os
 from deepspeech import Model
 from scipy.io.wavfile import read as wav_read
 from transformers import T5Tokenizer, T5ForConditionalGeneration, T5Config
@@ -16,7 +15,7 @@ import torch
 
 app = FastAPI()
 
-# params for deepspeech
+# params for deepspeech model
 model_file_path = 'deepspeech-0.9.3-models.pbmm'
 lm_file_path = 'deepspeech-0.9.3-models.scorer'
 beam_width = 100

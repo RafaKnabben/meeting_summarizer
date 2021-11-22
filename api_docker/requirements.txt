@@ -1,11 +1,11 @@
-contextlib
+#contextlib
 Cython
 deepspeech
 fastapi
 future
 librosa
 nemo_toolkit[all]
-os
+#os
 pydub
 pynini
 scipy
