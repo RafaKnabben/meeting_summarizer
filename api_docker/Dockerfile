@@ -8,7 +8,7 @@ FROM python:3.8-buster
 COPY api /api
 
 # copy package
-# COPY speech_summarizer /speech_summarizer
+# COPY audio_summarizer /audio_summarizer
 
 # copy trained model(s)
 # COPY model /model

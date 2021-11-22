@@ -1,16 +1,18 @@
-# API
+contextlib
+Cython
+deepspeech
 fastapi
+future
+librosa
+nemo_toolkit[all]
+os
+pydub
+pynini
+scipy
+sentencepiece
+soundfile
+torch
+transformers
 uvicorn
-
-# # T5: T5Tokenizer, T5ForConditionalGeneration, T5Config
-# transformers==2.8.0
-# torch==1.4.0
-# json
-
-# # speech 2vec
-#librosa
-# future
-
-# # data
-# soundfile
-# youtube_dl
+youtube_dl
+wave
