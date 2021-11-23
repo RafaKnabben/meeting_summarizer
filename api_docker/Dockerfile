@@ -1,8 +1,5 @@
 # base image
-FROM python:3.8-buster
-
-# path to the GCP credentials file
-# COPY /path/to/your/credentials.json /credentials.json
+FROM python:3.8.6-buster
 
 # copy api
 COPY api /api
@@ -19,6 +16,7 @@ COPY requirements.txt /requirements.txt
 # run pip
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+
 RUN apt-get update -y && apt-get install -y --no-install-recommends build-essential gcc \
   libsndfile1
 
