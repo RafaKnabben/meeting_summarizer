@@ -15,12 +15,19 @@ import torch
 
 app = FastAPI()
 
-# params for deepspeech model
+# params for Deepspeech
 model_file_path = 'deepspeech-0.9.3-models.pbmm'
 lm_file_path = 'deepspeech-0.9.3-models.scorer'
 beam_width = 100
 lm_alpha = 0.93
 lm_beta = 1.18
+
+# params for T5
+num_beams=4
+no_repeat_ngram_size=2
+min_length=30
+max_length=100
+early_stopping=True
 
 
 #CORS
@@ -53,6 +60,7 @@ def get_tube(url):
             'preferredquality': '192',
         }],
     }
+
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(url, download=False)
         video_title = info_dict.get('id', None)
@@ -119,11 +127,11 @@ def summarize(url):
     t5_prepared_Text = "summarize: "+transcript[0]
     tokenized_text = tokenizer.encode(t5_prepared_Text, return_tensors="pt").to(device)
     summary_ids = model.generate(tokenized_text,
-                                      num_beams=4,
-                                      no_repeat_ngram_size=2,
-                                      min_length=30,
-                                      max_length=100,
-                                      early_stopping=True)
+                                 num_beams=num_beams,
+                                 no_repeat_ngram_size=no_repeat_ngram_size,
+                                 min_length=min_length,
+                                 max_length=max_length,
+                                 early_stopping=early_stopping)
 
     output = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
 
