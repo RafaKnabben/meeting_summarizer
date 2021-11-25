@@ -5,7 +5,6 @@ fastapi
 future
 librosa
 nemo_toolkit[all]
-#os
 pydub
 pynini
 scipy
@@ -16,4 +15,3 @@ transformers
 uvicorn
 youtube_dl
 wave
-###
