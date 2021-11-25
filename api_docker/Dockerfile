@@ -22,3 +22,4 @@ RUN apt-get update && apt-get install -y libsndfile1
 
 # run uvicorn server
 CMD uvicorn api.fast:app --host 0.0.0.0 --port $PORT
+###
