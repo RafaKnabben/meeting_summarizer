@@ -29,7 +29,7 @@ min_length = 30
 max_length = 100
 early_stopping = True
 
-#CORS
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Allows all origins
@@ -123,7 +123,7 @@ def get_summary(transcript):
 
 
 # endpoints
-#define a root '/'
+# define a root '/'
 @app.get("/")
 def index():
     return {"ok": True}
