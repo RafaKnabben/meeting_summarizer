@@ -40,7 +40,7 @@ app.add_middleware(
 
 
 # functions
-# download youtube video
+# download youtube video and extract mp3
 def get_tube(url):
     ydl_opts = {
         'format':
@@ -65,7 +65,7 @@ def get_tube(url):
     return mp3
 
 
-# extract audio data from youtube video
+# convert mp3 to wav
 def get_audio(mp3):
     shortcut = mp3[:-4]
     wav = f"{shortcut}.wav"
