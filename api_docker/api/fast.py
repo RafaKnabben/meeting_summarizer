@@ -43,11 +43,12 @@ app.add_middleware(
 # download youtube video and extract mp3
 def get_tube(url):
     ydl_opts = {
-        'format':
-        'bestaudio/best',
+        # 'format':
+        # 'bestaudio/best',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'wav',
+            'quality': '16k',
             'preferredquality': '192',
         }],
     }
