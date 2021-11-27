@@ -8,6 +8,7 @@ wheel>=0.29
 numpy
 pandas
 scikit-learn
+scipy
 
 # tests/linter
 black
@@ -21,9 +22,20 @@ gcsfs
 google-cloud-storage
 mlflow
 s3fs
+google-colab
 
 # utilities
-six>=1.14
+six
 joblib
 memoized-property
 termcolor
+IPython
+
+#speech2text
+sox
+librosa
+deepspeech
+#wave==0.0.2
+soundfile
+ffmpeg
+pyaudio
