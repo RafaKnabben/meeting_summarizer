@@ -48,7 +48,7 @@ def get_tube(url):
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'wav',
-            'preferredquality': '16',
+            'preferredquality': '16k',
         }],
     }
 
