@@ -15,7 +15,9 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # install soundfile dependency
-RUN apt-get update && apt-get install -y libsndfile1
+#RUN apt-get update && apt-get install -y libsndfile1
+
+# install youtube_dl dependency
 RUN apt-get install -y ffmpeg
 
 # download pre-trained deepspeech

@@ -3,13 +3,13 @@ Cython
 deepspeech
 fastapi
 future
-librosa
+#librosa
 nemo_toolkit[all]
 pydub
 pynini
 scipy
 sentencepiece
-soundfile
+#soundfile
 torch
 transformers
 uvicorn

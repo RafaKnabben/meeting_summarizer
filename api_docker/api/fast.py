@@ -3,8 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import youtube_dl
 import os
-import librosa
-import soundfile
+# import librosa
+# import soundfile
 from pydub import AudioSegment
 from deepspeech import Model
 from scipy.io.wavfile import read as wav_read
@@ -47,7 +47,7 @@ def get_tube(url):
         'bestaudio/best',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
+            'preferredcodec': 'wav',
             'preferredquality': '192',
         }],
     }
@@ -56,29 +56,29 @@ def get_tube(url):
         info_dict = ydl.extract_info(url, download=False)
         video_title = info_dict.get('id', None)
 
-    mp3 = f'{video_title}.mp3'
-    ydl_opts.update({'outtmpl': mp3})
+    wav = f'{video_title}.wav'
+    ydl_opts.update({'outtmpl': wav})
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
 
-    return mp3
-
-
-# convert mp3 to wav
-def get_audio(mp3):
-    shortcut = mp3[:-4]
-    wav = f"{shortcut}.wav"
-
-    sound = AudioSegment.from_file(mp3)
-    sound.export(wav, format="wav")
-
-    os.remove(mp3)
-
-    audio, sr = librosa.load(wav, sr=16000)
-    soundfile.write(wav, data=audio, samplerate=sr)
-
     return wav
+
+
+# # convert mp3 to wav
+# def get_audio(mp3):
+#     shortcut = mp3[:-4]
+#     wav = f"{shortcut}.wav"
+
+#     sound = AudioSegment.from_file(mp3)
+#     sound.export(wav, format="wav")
+
+#     os.remove(mp3)
+
+#     audio, sr = librosa.load(wav, sr=16000)
+#     soundfile.write(wav, data=audio, samplerate=sr)
+
+#     return wav
 
 
 # transcription
@@ -131,20 +131,20 @@ def index():
 
 @app.post("/download_test")
 def get_tube_only(url):
-    mp3 = get_tube(url)
-    return mp3
-
-
-@app.get("/extract_test")
-def get_audio_only(url):
-    mp3 = get_tube_only(url)
-    wav = get_audio(mp3)
+    wav = get_tube(url)
     return wav
+
+
+# @app.get("/extract_test")
+# def get_audio_only(url):
+#     mp3 = get_tube_only(url)
+#     wav = get_audio(mp3)
+#     return wav
 
 
 @app.get("/transcribe_test")
 def get_transcript_only(url):
-    wav = get_audio_only(url)
+    wav = get_tube_only(url)
     transcript = get_transcript(wav)
     return transcript
 
@@ -158,8 +158,8 @@ def get_summary_only(url):
 
 @app.get("/all_steps_test")
 def get_all(url):
-    mp3 = get_tube(url)
-    wav = get_audio(mp3)
+    wav = get_tube(url)
+    #wav = get_audio(mp3)
     transcript = get_transcript(wav)
     summary = get_summary(transcript)
     return summary
