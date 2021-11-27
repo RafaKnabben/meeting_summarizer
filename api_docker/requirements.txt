@@ -9,7 +9,7 @@ pydub
 pynini
 scipy
 sentencepiece
-#soundfile
+##soundfile
 torch
 transformers
 uvicorn

@@ -5,7 +5,7 @@ import youtube_dl
 import os
 # import librosa
 # import soundfile
-from pydub import AudioSegment
+#from pydub import AudioSegment
 from deepspeech import Model
 from scipy.io.wavfile import read as wav_read
 from transformers import T5Tokenizer, T5ForConditionalGeneration, T5Config

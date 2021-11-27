@@ -18,7 +18,7 @@ RUN pip install -r requirements.txt
 #RUN apt-get update && apt-get install -y libsndfile1
 
 # install youtube_dl dependency
-RUN apt-get install -y ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg
 
 # download pre-trained deepspeech
 RUN wget https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.pbmm
