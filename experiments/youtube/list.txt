@@ -1,0 +1,11 @@
+# analyse
+snakeviz
+
+# youtube
+os
+pytube
+ffmpeg
+
+# deepspeech
+deepspeech
+scipy
