@@ -1,6 +1,21 @@
-'''
-need to be improved !!!!!
-'''
-
+bert-extractive-summarizer
+Cython
+deepspeech
 fastapi
+future
+ipywidgets
+librosa
+nemo_toolkit[all]
+neuralcoref
+pydub
+pynini
+scipy
+sentencepiece
+soundfile
+spacy
+torch
+torchvision
+transformers
 uvicorn
+youtube_dl
+wave
