@@ -56,7 +56,7 @@ def get_tube(url):
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(url, download=False)
         video_id = info_dict.get('id', None)
-        video_title = info_dict.get('id', None)
+        video_title = info_dict.get('title', None)
         video_duration = info_dict.get('duration', None)
 
     min = int(video_duration / 60)
@@ -114,8 +114,9 @@ def get_transcript(wav):
 
 # nemo punctuation
 def get_punc_transcript(transcript):
-    model_1 = nemo_nlp.models.PunctuationCapitalizationModel.from_pretrained(
+   # model_1 = nemo_nlp.models.PunctuationCapitalizationModel.from_pretrained(
         model_name="punctuation_en_bert")
+    model_1 = nemo_nlp.models.PunctuationCapitalizationModel.restore_from('./punctuation_en_bert.nemo')
     punc_transcript = model_1.add_punctuation_capitalization([transcript])
 
     return punc_transcript
