@@ -115,7 +115,7 @@ def get_transcript(wav):
 # nemo punctuation
 def get_punc_transcript(transcript):
    # model_1 = nemo_nlp.models.PunctuationCapitalizationModel.from_pretrained(
-        model_name="punctuation_en_bert")
+        #model_name="punctuation_en_bert")
     model_1 = nemo_nlp.models.PunctuationCapitalizationModel.restore_from('./punctuation_en_bert.nemo')
     punc_transcript = model_1.add_punctuation_capitalization([transcript])
 
@@ -228,9 +228,8 @@ def get_abs_ext_all(url):
     punc_transcript = get_punc_transcript(transcript)
     abs_summary = get_abs_summary(punc_transcript)
     ext_summary = get_ext_summary(punc_transcript)
-    return [
-        abs_summary,
-        ext_summary,
-        video_info['title'],
-        video_info['duration']
-    ]
+    return {
+        'abstractive_summary': abs_summary,
+        'extractive_summary': ext_summary,
+        'video_information': video_info
+    }
