@@ -44,7 +44,9 @@ app.add_middleware(
 # download youtube video and extract mp3
 def get_tube(url):
     ydl_opts = {
-        'format':'bestaudio/best',
+
+        'format':
+        'bestaudio/best',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
@@ -54,15 +56,32 @@ def get_tube(url):
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(url, download=False)
-        video_title = info_dict.get('id', None)
 
-    mp3 = f'{video_title}.mp3'
-    ydl_opts.update({'outtmpl': mp3})
+        video_id = info_dict.get('id', None)
+        video_title = info_dict.get('title', None)
+        video_duration = info_dict.get('duration', None)
+
+    min = int(video_duration / 60)
+    sec = video_duration % 60
+    if sec < 10:
+        duration = f"{min}:0{sec}"
+    else:
+        duration = f"{min}:{sec}"
+
+    video_info = {}
+    video_info["path"] = f'{video_id}.mp3'
+    video_info["title"] = video_title
+    video_info["duration"] = duration
+
+    #mp3 = f'{video_title}.mp3'
+    ydl_opts.update({'outtmpl': video_info["path"]})
+
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download([url])
 
-    return mp3
+    return video_info
+
 
 
 # convert mp3 to wav
@@ -96,13 +115,17 @@ def get_transcript(wav):
 
     return transcript
 
+
+
 # nemo punctuation
 def get_punc_transcript(transcript):
-    model_1 = nemo_nlp.models.PunctuationCapitalizationModel.from_pretrained(
-        model_name="punctuation_en_bert")
+   # model_1 = nemo_nlp.models.PunctuationCapitalizationModel.from_pretrained(
+        #model_name="punctuation_en_bert")
+    model_1 = nemo_nlp.models.PunctuationCapitalizationModel.restore_from('./punctuation_en_bert.nemo')
     punc_transcript = model_1.add_punctuation_capitalization([transcript])
 
     return punc_transcript
+
 
 
 # abs summarization
@@ -136,6 +159,7 @@ def get_ext_summary(punc_transcript):
 
 
 
+
 # endpoints
 # define a root '/'
 @app.get("/")
@@ -145,7 +169,9 @@ def index():
 
 @app.post("/download_test")
 def get_tube_only(url):
-    mp3 = get_tube(url)
+
+    mp3 = get_tube(url)['path']
+
     return mp3
 
 
@@ -186,7 +212,9 @@ def get_ext_summ_only(url):
 
 @app.get("/abs_all_test")
 def get_abs_all(url):
-    mp3 = get_tube(url)
+
+    mp3 = get_tube(url)['path']
+
     wav = get_audio(mp3)
     transcript = get_transcript(wav)
     punc_transcript = get_punc_transcript(transcript)
@@ -196,7 +224,9 @@ def get_abs_all(url):
 
 @app.get("/ext_all_test")
 def get_ext_all(url):
-    mp3 = get_tube(url)
+
+    mp3 = get_tube(url)['path']
+
     wav = get_audio(mp3)
     transcript = get_transcript(wav)
     punc_transcript = get_punc_transcript(transcript)
@@ -204,7 +234,17 @@ def get_ext_all(url):
     return ext_summary
 
 
-# # get keywords from summary
-# @app.get("/keywords")
-# def get_keywords(*args, **kwargs):
-#     pass
+@app.get("/abs_ext_all_test")
+def get_abs_ext_all(url):
+    video_info = get_tube(url)
+    wav = get_audio(video_info['path'])
+    transcript = get_transcript(wav)
+    punc_transcript = get_punc_transcript(transcript)
+    abs_summary = get_abs_summary(punc_transcript)
+    ext_summary = get_ext_summary(punc_transcript)
+    return {
+        'abstractive_summary': abs_summary,
+        'extractive_summary': ext_summary,
+        'video_information': video_info
+    }
+
