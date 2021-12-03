@@ -42,16 +42,17 @@ app.add_middleware(
 
 # functions
 def check_weights():
-    if not os.path.isfile("punctuation_en_bert"):
+    if not os.path.isfile("punctuation_en_bert.nemo"):
         os.system(
             "wget https://api.ngc.nvidia.com/v2/models/nvidia/nemo/punctuation_en_bert/versions/1.0.0rc1/files/punctuation_en_bert.nemo"
-
         )
 
+    if not os.path.isfile("deepspeech-0.9.3-models.pbmm"):
         os.system(
             "wget https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.pbmm"
         )
 
+    if not os.path.isfile("deepspeech-0.9.3-models.scorer"):
         os.system(
             "wget https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.scorer"
         )
@@ -212,6 +213,7 @@ def get_punc_transc_only(url):
 
 @app.get("/abs_summarize_test")
 def get_abs_summ_only(url):
+    check_weights()
     punc_transcript = get_punc_transc_only(url)
     abs_summary = get_abs_summary(punc_transcript)
     return abs_summary
@@ -219,6 +221,7 @@ def get_abs_summ_only(url):
 
 @app.get("ext_summarize_test")
 def get_ext_summ_only(url):
+    check_weights()
     punc_transcript = get_punc_transc_only(url)
     ext_summary = get_ext_summary(punc_transcript)
     return ext_summary
@@ -226,9 +229,8 @@ def get_ext_summ_only(url):
 
 @app.get("/abs_all_test")
 def get_abs_all(url):
-
+    check_weights()
     mp3 = get_tube(url)['path']
-
     wav = get_audio(mp3)
     transcript = get_transcript(wav)
     punc_transcript = get_punc_transcript(transcript)
@@ -238,9 +240,8 @@ def get_abs_all(url):
 
 @app.get("/ext_all_test")
 def get_ext_all(url):
-
+    check_weights()
     mp3 = get_tube(url)['path']
-
     wav = get_audio(mp3)
     transcript = get_transcript(wav)
     punc_transcript = get_punc_transcript(transcript)
@@ -250,6 +251,7 @@ def get_ext_all(url):
 
 @app.get("/abs_ext_all_test")
 def get_abs_ext_all(url):
+    check_weights()
     video_info = get_tube(url)
     wav = get_audio(video_info['path'])
     transcript = get_transcript(wav)
