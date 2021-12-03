@@ -134,8 +134,8 @@ def get_transcript(wav):
 
 # nemo punctuation
 def get_punc_transcript(transcript):
-   # model_1 = nemo_nlp.models.PunctuationCapitalizationModel.from_pretrained(
-        #model_name="punctuation_en_bert")
+    # model_1 = nemo_nlp.models.PunctuationCapitalizationModel.from_pretrained(
+    #model_name="punctuation_en_bert")
     model_1 = nemo_nlp.models.PunctuationCapitalizationModel.restore_from('./punctuation_en_bert.nemo')
     punc_transcript = model_1.add_punctuation_capitalization([transcript])
 
